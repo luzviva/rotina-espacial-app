@@ -6,7 +6,7 @@ const firebaseConfig = {
   authDomain: process.env.rotina-espacial-app.firebaseapp.com,
   projectId: process.env.rotina-espacial-app,
   storageBucket: process.env.rotina-espacial-app.firebasestorage.app,
-  messagingSenderId: process.env."484210967340",
+  messagingSenderId: process.env.484210967340,
   appId: process.env.1:484210967340:web:6b12db360af17939886289
 };
 
