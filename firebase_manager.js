@@ -2,12 +2,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebas
 import { getFirestore, collection, getDocs, doc, getDoc, addDoc, updateDoc, deleteDoc, setDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: process.env.AIzaSyDVgHZ4lhNGmfePT5HHpRGNAdlI5Y_OdBM,
-  authDomain: process.env.rotina-espacial-app.firebaseapp.com,
-  projectId: process.env.rotina-espacial-app,
-  storageBucket: process.env.rotina-espacial-app.firebasestorage.app,
-  messagingSenderId: process.env.484210967340,
-  appId: process.env.1:484210967340:web:6b12db360af17939886289
+  apiKey: "AIzaSyDVgHZ4lhNGmfePT5HHpRGNAdlI5Y_OdBM",
+  authDomain: "rotina-espacial-app.firebaseapp.com",
+  projectId: "rotina-espacial-app",
+  storageBucket: "rotina-espacial-app.firebasestorage.app",
+  messagingSenderId: "484210967340",
+  appId: "1:484210967340:web:6b12db360af17939886289"
 };
 
 const app = initializeApp(firebaseConfig);
