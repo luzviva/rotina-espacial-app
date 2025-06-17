@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotina Espacial</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #loading-overlay {
+            z-index: 100;
+            transition: opacity 0.5s ease-out;
+        }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #5de4e4;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-nunito overflow-y-scroll">
+
+    <div id="loading-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center">
+        <div class="loader"></div>
+    </div>
+
+    <div id="app-container" class="min-h-screen w-full p-2 sm:p-4 md:p-6 lg:p-8 xl:p-12 relative">
+
+        <!-- Child View -->
+        <main id="child-view" class="flex flex-col h-full">
+            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 md:mb-8 space-y-4 lg:space-y-0">
+                <div class="space-y-2">
+                    <h1 id="welcome-title" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black text-yellow-300 drop-shadow-lg animate-title-glow">Rotina Espacial</h1>
+                    <p id="current-date" class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-cyan-200"></p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="coin-counter" class="flex items-center gap-2 sm:gap-3 bg-black bg-opacity-40 p-2 sm:p-3 lg:p-4 xl:p-6 rounded-2xl border-2 border-cyan-400 shadow-lg transition-all duration-300 hover:shadow-cyan-400/30">
+                        <img src="https://r2.flowith.net/files/o/1749768887371-star_coin_icon_for_children's_space-themed_rewards_system_index_1@1024x1024.png" alt="Estrela" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 animate-star-pulse">
+                        <span id="coin-total" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-yellow-300">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <div id="time-navigation-child" class="flex flex-col lg:flex-row items-center justify-center gap-4 mb-6 time-nav-container">
+                <div class="flex items-center gap-2">
+                    <label for="week-selector-child" class="font-bold text-cyan-200 text-sm sm:text-base">Semana:</label>
+                    <input type="number" id="week-selector-child" min="1" max="53" class="input-field w-24 text-center text-sm sm:text-base">
+                </div>
+                <div id="day-selector-buttons-child" class="grid grid-cols-7 gap-1 sm:gap-2">
+                    <!-- Day buttons will be injected here by JS -->
+                </div>
+            </div>
+
+            <section id="schedule-grid" class="flex-grow">
+                <!-- Time grid will be injected here by JavaScript -->
+            </section>
+            
+            <footer class="mt-6 md:mt-8 xl:mt-12 text-center">
+                <button id="switch-to-admin" class="p-2 sm:p-3 md:p-4 rounded-full bg-purple-600 hover:bg-purple-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/30 hover:scale-110 active:scale-95">
+                    <i data-lucide="settings" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"></i>
+                </button>
+            </footer>
+        </main>
+
+        <!-- Admin View -->
+        <aside id="admin-view" class="hidden flex-col h-full">
+            <header class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 md:mb-8 space-y-4 lg:space-y-0">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-cyan-300">Painel dos Pais</h1>
+                 <button id="switch-to-child" class="p-2 sm:p-3 md:p-4 rounded-full bg-cyan-600 hover:bg-cyan-500 transition-all duration-300 shadow-lg hover:shadow-cyan-500/30 hover:scale-110 active:scale-95">
+                    <i data-lucide="home" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"></i>
+                </button>
+            </header>
+
+            <section id="parent-controls" class="bg-black bg-opacity-50 backdrop-blur-sm p-4 sm:p-5 md:p-6 rounded-2xl border border-gray-700 mb-8 flex flex-col items-center">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-yellow-300">Controle de Moedas</h2>
+                <div class="flex items-center gap-4">
+                    <button id="remove-coin-btn" class="p-3 sm:p-4 rounded-full bg-red-600 hover:bg-red-500 transition-all duration-300 shadow-lg hover:shadow-red-500/30 hover:scale-110 active:scale-95">
+                        <i data-lucide="minus" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white"></i>
+                    </button>
+                    <div class="flex items-center gap-2 bg-black bg-opacity-40 p-2 sm:p-3 rounded-xl border border-cyan-400 shadow-lg">
+                        <img src="https://r2.flowith.net/files/o/1749768887371-star_coin_icon_for_children's_space-themed_rewards_system_index_1@1024x1024.png" alt="Estrela" class="w-8 h-8 sm:w-10 sm:h-10">
+                        <span id="admin-coin-total" class="text-2xl sm:text-3xl font-black text-yellow-300">0</span>
+                    </div>
+                    <button id="add-coin-btn" class="p-3 sm:p-4 rounded-full bg-green-600 hover:bg-green-500 transition-all duration-300 shadow-lg hover:shadow-green-500/30 hover:scale-110 active:scale-95">
+                        <i data-lucide="plus" class="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section class="bg-black bg-opacity-50 backdrop-blur-sm p-4 sm:p-5 md:p-6 rounded-2xl border border-gray-700 mb-8">
+                <h2 id="form-title" class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-yellow-300">Adicionar Nova Tarefa</h2>
+                <form id="task-form" class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+                    <input type="hidden" id="task-id">
+                    <div class="flex flex-col lg:col-span-2">
+                        <label for="task-description" class="mb-2 font-bold text-cyan-200 text-sm sm:text-base">Descrição</label>
+                        <input type="text" id="task-description" placeholder="Ex: Escovar os dentes" class="input-field text-sm sm:text-base" required>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="task-time" class="mb-2 font-bold text-cyan-200 text-sm sm:text-base">Horário Início</label>
+                        <input type="time" id="task-time" class="input-field text-sm sm:text-base" required>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="endTime" class="mb-2 font-bold text-cyan-200 text-sm sm:text-base">Horário Fim</label>
+                        <input type="time" id="endTime" class="input-field text-sm sm:text-base">
+                    </div>
+                    <div class="lg:col-span-2">
+                        <label class="mb-2 font-bold text-cyan-200 block text-sm sm:text-base">Dias da Semana</label>
+                        <div id="task-days" class="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                            <!-- Day buttons will be injected here -->
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <label for="task-reward" class="font-bold text-cyan-200 text-sm sm:text-base">Dá recompensa?</label>
+                        <input type="checkbox" id="task-reward" class="w-5 h-5 sm:w-6 sm:h-6 accent-yellow-400">
+                    </div>
+                     <div class="flex items-center gap-4">
+                        <label for="enableNotifications" class="font-bold text-cyan-200 text-sm sm:text-base">Habilitar Notificações</label>
+                        <input type="checkbox" id="enableNotifications" class="w-5 h-5 sm:w-6 sm:h-6 accent-purple-400">
+                    </div>
+                    <div class="lg:col-span-2 flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
+                        <button type="submit" id="form-submit-btn" class="flex-1 btn-primary bg-green-600 hover:bg-green-500 text-sm sm:text-base">
+                            <i data-lucide="plus-circle" class="mr-2"></i> Adicionar Tarefa
+                        </button>
+                        <button type="button" id="form-cancel-btn" class="flex-1 btn-secondary bg-red-600 hover:bg-red-500 hidden text-sm sm:text-base">
+                             <i data-lucide="x-circle" class="mr-2"></i> Cancelar Edição
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="flex-grow">
+                <div id="time-navigation-admin" class="flex flex-col lg:flex-row items-center justify-center gap-4 mb-6 bg-black bg-opacity-50 backdrop-blur-sm p-4 rounded-2xl border border-gray-700">
+                    <div class="flex items-center gap-2">
+                        <label for="week-selector-admin" class="font-bold text-cyan-200 text-sm sm:text-base">Semana:</label>
+                        <input type="number" id="week-selector-admin" min="1" max="53" class="input-field w-24 text-center text-sm sm:text-base">
+                    </div>
+                    <div id="day-selector-buttons-admin" class="grid grid-cols-7 gap-1 sm:gap-2">
+                        <!-- Day buttons will be injected here by JS -->
+                    </div>
+                </div>
+
+                <h2 id="admin-list-title" class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-yellow-300">Tarefas Agendadas</h2>
+                <div id="admin-task-list" class="space-y-3 overflow-y-auto max-h-96 lg:max-h-none">
+                    <!-- Admin task list will be injected here -->
+                </div>
+            </section>
+        </aside>
+
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-image: url("https://r2.flowith.net/files/o/1749768975170-child_friendly_space_background_illustration_index_0@1536x1024.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #0A192F;
+}
+
+#app-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(10, 25, 47, 0.4);
+    z-index: -1;
+}
+
+.font-nunito {
+    font-family: 'Nunito', sans-serif;
+}
+
+.task-card {
+    background-color: rgba(18, 30, 65, 0.8);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(0, 255, 255, 0.4);
+    border-radius: 1.5rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+    animation: task-card-entrance 0.6s ease-out forwards;
+}
+
+.task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.6);
+}
+
+.task-card.completed {
+    background-color: rgba(4, 50, 4, 0.8);
+    border-color: rgba(50, 205, 50, 0.6);
+    animation: task-completion 0.8s ease-out;
+}
+
+.task-card.completed .task-description,
+.task-card.completed .task-time {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.task-time {
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    color: #00FFFF;
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    transition: all 0.3s ease;
+}
+
+.task-description {
+    font-size: clamp(1.125rem, 3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.task-actions button, .task-actions img {
+    width: clamp(3rem, 8vw, 6rem);
+    height: clamp(3rem, 8vw, 6rem);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task-actions button:hover {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+}
+
+.task-actions button:active {
+    transform: scale(0.9);
+}
+
+.reward-star {
+    width: clamp(1.5rem, 4vw, 2.5rem);
+    height: clamp(1.5rem, 4vw, 2.5rem);
+    animation: star-twinkle 2s infinite ease-in-out;
+}
+
+.input-field {
+    background-color: rgba(10, 25, 47, 0.9);
+    border: 2px solid rgba(42, 10, 79, 0.6);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #00FFFF;
+    box-shadow: 0 0 0 4px rgba(0, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.day-btn {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    border: 2px solid rgba(42, 10, 79, 0.6);
+    background-color: rgba(42, 10, 79, 0.5);
+    color: #e0e0e0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+}
+
+.day-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.day-btn.selected {
+    background-color: #FFD700;
+    color: #0A192F;
+    border-color: #FFD700;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(255, 215, 0, 0.4);
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.75rem;
+    color: white;
+font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.btn-primary:active, .btn-secondary:active {
+    transform: translateY(0);
+}
+
+.reward-particle {
+    position: fixed;
+    width: clamp(16px, 4vw, 32px);
+    height: clamp(16px, 4vw, 32px);
+    background-image: url("https://r2.flowith.net/files/o/1749768887371-star_coin_icon_for_children's_space-themed_rewards_system_index_1@1024x1024.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1000;
+    pointer-events: none;
+    animation: reward-sparkle 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes task-card-entrance {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes task-completion {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(50, 205, 50, 0.6);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes animate-title-glow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.6);
+    }
+}
+
+@keyframes star-twinkle {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes star-pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+    }
+}
+
+@keyframes reward-sparkle {
+    0% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.3) rotate(360deg);
+    }
+}
+
+.animate-title-glow {
+    animation: animate-title-glow 3s ease-in-out infinite;
+}
+
+.animate-star-pulse {
+    animation: star-pulse 2s ease-in-out infinite;
+}
+
+@media (min-width: 1536px) {
+    .task-card {
+        padding: 2rem;
+        border-radius: 2rem;
+    }
+    
+    .task-time {
+        padding: 1rem 1.5rem;
+        font-size: 1.25rem;
+    }
+    
+    .task-description {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .task-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .task-actions {
+        align-self: center;
+    }
+    
+    #task-days {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    body {
+        font-size: 1.125rem;
+    }
+    
+    .task-card {
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    #coin-counter {
+        padding: 2rem;
+        border-width: 3px;
+    }
+}
+
+@supports (backdrop-filter: blur(10px)) {
+    .task-card {
+        backdrop-filter: blur(16px);
+    }
+}
+
+.time-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.time-slot {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.time-label {
+    text-align: right;
+    font-weight: bold;
+    color: #00FFFF;
+    padding-top: 0.5rem;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    white-space: nowrap;
+}
+
+.slot-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 3rem;
+}
+
+.empty-slot {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+.slot-content .task-card {
+    padding: 0.75rem 1rem;
+    margin: 0;
+    box-shadow: none;
+    transform: none !important;
+    animation: none;
+    backdrop-filter: blur(8px);
+    border-color: rgba(0, 255, 255, 0.3);
+}
+
+.slot-content .task-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.15);
+    border-color: rgba(0, 255, 255, 0.5);
+}
+
+.time-nav-container {
+    background-color: rgba(10, 25, 47, 0.5);
+    backdrop-filter: blur(5px);
+    padding: 1rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.view-day-btn {
+    padding: 0.5rem;
+    border-radius: 0.75rem;
+    border: 2px solid rgba(0, 128, 128, 0.6);
+    background-color: rgba(0, 50, 50, 0.5);
+    color: #e0e0e0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: uppercase;
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+    min-width: 40px;
+}
+
+.view-day-btn:hover {
+    transform: translateY(-2px);
+    background-color: rgba(0, 80, 80, 0.7);
+    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+}
+
+.view-day-btn.selected {
+    background-color: #00FFFF;
+    color: #0A192F;
+    border-color: #00FFFF;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 255, 255, 0.4);
+}
