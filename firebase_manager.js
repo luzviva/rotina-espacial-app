@@ -1,20 +1,41 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, addDoc, updateDoc, deleteDoc, setDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+// Importações atualizadas para o SDK modular do Firebase
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { 
+    getFirestore, 
+    collection, 
+    getDocs, 
+    doc, 
+    getDoc, 
+    addDoc, 
+    updateDoc, 
+    deleteDoc, 
+    setDoc, 
+    increment, 
+    onSnapshot 
+} from "firebase/firestore";
 
+// Sua nova configuração do Firebase
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDVgHZ4lhNGmfePT5HHpRGNAdlI5Y_OdBM",
+  authDomain: "rotina-espacial-app.firebaseapp.com",
+  projectId: "rotina-espacial-app",
+  storageBucket: "rotina-espacial-app.firebasestorage.app",
+  messagingSenderId: "484210967340",
+  appId: "1:484210967340:web:6b12db360af17939886289",
+  measurementId: "G-G8BNK17F4Y"
 };
 
+// Inicializa o Firebase e outros serviços
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const analytics = getAnalytics(app); // Opcional, mas incluído da sua nova config
+const db = getFirestore(app); // Mantém a inicialização do Firestore
 
+// Referências às coleções e documentos no Firestore
 const tasksCol = collection(db, "tasks");
 const appStateDocRef = doc(db, "appState", "coins_state");
+
+// --- TODAS AS FUNÇÕES ORIGINAIS PERMANECEM INALTERADAS ---
 
 export async function addTask(taskData) {
     try {
